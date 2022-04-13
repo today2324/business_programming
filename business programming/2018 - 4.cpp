@@ -9,37 +9,26 @@ bool isCheck = false;
 int Xside[4] = { 1, 0, -1, 0 };
 int Yside[4] = { 0, 1, 0, -1 };
 
-void search(int x, int y)
+bool search(int x, int y)
 {
-	for (int i = 0; !isCheck; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		int aroundX = Xside[i] + x;
 		int aroundY = Yside[i] + y;
 
-		if (aroundX < 0 || aroundY < 0 || aroundX > testcase - 1 || aroundY>testcase - 1) { continue; }
-
-		cout << "i = " << i << endl;
-		cout << "Xside = " << Xside[i] << " Yside = " << Yside[i] << "\n========" << endl;
-
-		if (visited[aroundX][aroundY] == false)
+		if (aroundX < 0 || aroundY < 0 || aroundX > testcase - 1 || aroundY > testcase - 1) { continue; }
+		if (visited[aroundX][aroundY] == false && puzzle[aroundX][aroundY] == 0)
 		{
-			if (puzzle[aroundX][aroundY] != 0)
-			{
-				cout << "in puzzle" << endl;
-				visited[aroundX][aroundY] = true;
-				i--;
-				continue;
-			}
-			cout << "aroundX = " << aroundX << " aroundY = " << aroundY << "\n========" << endl;
-
-			if (aroundX == testcase - 1 && aroundY == testcase - 1)
-			{
-				isCheck = true;
-				i = testcase;
-				break;
-			}
 			visited[aroundX][aroundY] = true;
-			cout << "in search" << endl;
+			for (i; i < 4; i++)
+			{
+				aroundX = Xside[i] + x;
+				aroundY = Yside[i] + y;
+				if (puzzle[aroundX][aroundY] == 1)
+				{
+
+				}
+			}
 			search(aroundX, aroundY);
 		}
 	}
@@ -56,7 +45,7 @@ int main()
 			cin >> puzzle[j][i];
 			if (puzzle[j][i] > 1 || puzzle[j][i] < 0)
 			{
-				cout << "ÀÔ·Â ¿À·ù" << endl;
+				cout << "ìž…ë ¥ ì˜¤ë¥˜" << endl;
 				return 0;
 			}
 		}
@@ -71,17 +60,12 @@ int main()
 		cout << endl;
 	}
 
-	cout << "Âü°¡¹øÈ£(12345) ¼º¸í(Á¶¼öºó) ÇÐ±³¸í(¿©¼öÁ¤º¸°úÇÐ°íµîÇÐ±³)" << endl;
+	cout << "ì°¸ê°€ë²ˆí˜¸(12345) ì„±ëª…(ì¡°ìˆ˜ë¹ˆ) í•™êµëª…(ì—¬ìˆ˜ì •ë³´ê³¼í•™ê³ ë“±í•™êµ)" << endl;
 	cout << "=========================================================" << endl;
 	if (puzzle[0][0] == 0)
 	{
-		visited[0][0] = true;
 		search(0, 0);
-		if (isCheck)
-		{
-			cout << 1 << endl;
-			return 0;
-		}
 	}
 
+	return 0;
 }
