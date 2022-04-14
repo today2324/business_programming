@@ -37,7 +37,7 @@ bool search(int x, int y)
 				{
 					tempX = aroundX;
 					tempY = aroundY;
-				}a
+				}
 			}
 
 			if (aroundX == testcase-1 && aroundY == testcase - 1)
