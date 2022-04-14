@@ -6,32 +6,49 @@ int puzzle[10][10];
 int visited[10][10];
 int testcase;
 bool isCheck = false;
-int Xside[4] = { 1, 0, -1, 0 };
-int Yside[4] = { 0, 1, 0, -1 };
+int Xside[4] = { 1, 0 };
+int Yside[4] = { 0, 1 };
 
 bool search(int x, int y)
 {
-	for (int i = 0; i < 4; i++)
+	int tempX;
+	int tempY;
+	for (int i = 0; i < 2; i++)
 	{
 		int aroundX = Xside[i] + x;
 		int aroundY = Yside[i] + y;
 
+		cout << "aroundX = " << aroundX << endl;
+		cout << "aroundY = " << aroundY << endl;
+
 		if (aroundX < 0 || aroundY < 0 || aroundX > testcase - 1 || aroundY > testcase - 1) { continue; }
+
 		if (visited[aroundX][aroundY] == false && puzzle[aroundX][aroundY] == 0)
 		{
 			visited[aroundX][aroundY] = true;
-			for (i; i < 4; i++)
+			if (i == 1)
 			{
-				aroundX = Xside[i] + x;
-				aroundY = Yside[i] + y;
-				if (puzzle[aroundX][aroundY] == 1)
-				{
-
-				}
+				search(aroundX, aroundY);
 			}
-			search(aroundX, aroundY);
+			else
+			{
+				aroundY++;	
+				if (puzzle[aroundX][aroundY] == 0)
+				{
+					tempX = aroundX;
+					tempY = aroundY;
+				}a
+			}
+
+			if (aroundX == testcase-1 && aroundY == testcase - 1)
+			{
+				isCheck = true;
+				return isCheck;
+			}
+
 		}
 	}
+	return isCheck;
 }
 
 int main()
@@ -64,7 +81,14 @@ int main()
 	cout << "=========================================================" << endl;
 	if (puzzle[0][0] == 0)
 	{
-		search(0, 0);
+		if (search(0, 0))
+		{
+			cout << 1 << endl;
+		}
+		else
+		{
+			cout << 0 << endl;
+		}
 	}
 
 	return 0;
