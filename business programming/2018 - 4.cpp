@@ -52,8 +52,8 @@ void search(int x, int y)
 		}
 		else if (i == 1 && possibleRoute > 0)
 		{
-			possibleRoute--;
 			cout << "tempNum - possibleRoute = " << tempNum - possibleRoute << endl;
+			cout << tempX[tempNum - possibleRoute] << tempX[tempNum - possibleRoute] << endl;
 			search(tempX[tempNum - possibleRoute], tempY[tempNum - possibleRoute]);
 		}
 		search(aroundX, aroundY);
@@ -73,7 +73,7 @@ int main()
 			{
 				cout << "입력 오류" << endl;
 				return 0;
-			} 
+			}
 		}
 	}
 
