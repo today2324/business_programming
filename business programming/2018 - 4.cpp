@@ -7,8 +7,8 @@ int puzzle[10][10];
 int visited[10][10];
 int testcase;
 bool isCheck = false;
-int Xside[4] = { 1, 0 };
-int Yside[4] = { 0, 1 };
+int Xside[2] = { 1, 0 };
+int Yside[2] = { 0, 1 };
 
 void search(int x, int y)
 {
@@ -21,15 +21,6 @@ void search(int x, int y)
 		int aroundX = Xside[i] + x;
 		int aroundY = Yside[i] + y;
 		if (aroundX < 0 || aroundY < 0 || aroundX > testcase - 1 || aroundY > testcase - 1) { continue; }
-
-		cout << "aroundX = " << aroundX << endl;
-		cout << "aroundY = " << aroundY << endl;
-		cout << "===" << endl;
-
-		if (aroundX == 1 && aroundY == 0)
-		{
-			cout << endl;
-		}
 
 		if (visited[aroundX][aroundY] == false && puzzle[aroundX][aroundY] == 0)
 		{
@@ -49,14 +40,14 @@ void search(int x, int y)
 					tempNum++;
 				}
 			}
+
+			search(aroundX, aroundY);
 		}
 		else if (i == 1 && possibleRoute > 0)
 		{
-			cout << "tempNum - possibleRoute = " << tempNum - possibleRoute << endl;
-			cout << tempX[tempNum - possibleRoute] << tempX[tempNum - possibleRoute] << endl;
-			search(tempX[tempNum - possibleRoute], tempY[tempNum - possibleRoute]);
+			possibleRoute--;
+			search(tempX[tempNum - (possibleRoute + 1)], tempY[tempNum - (possibleRoute + 1)]);
 		}
-		search(aroundX, aroundY);
 	}
 }
 
@@ -91,7 +82,6 @@ int main()
 
 	if (puzzle[0][0] == 0)
 	{
-		cout << "in first search" << endl;
 		search(0, 0);
 		if (isCheck)
 		{
