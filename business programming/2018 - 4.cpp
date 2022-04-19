@@ -7,8 +7,8 @@ int puzzle[10][10];
 int visited[10][10];
 int testcase;
 bool isCheck = false;
-int Xside[2] = { 1, 0 };
-int Yside[2] = { 0, 1 };
+int Xside[3] = { 1, 0, -1};
+int Yside[3] = { 0, 1, 0};
 
 void search(int x, int y)
 {
@@ -16,7 +16,7 @@ void search(int x, int y)
 	int tempNum = 0;
 	vector<int> tempX;
 	vector<int> tempY;
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		int aroundX = Xside[i] + x;
 		int aroundY = Yside[i] + y;
