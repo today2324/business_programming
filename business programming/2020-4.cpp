@@ -1,23 +1,43 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
+#define OUT 10000
+#define MAX 100
 using namespace std;
-
 typedef struct BUS {
 	string Number;
 	int Station = 0;
-	int StationNum[100] = { 0, };
-	int waiting_time[100] = { 0, };
+	int StationNum[MAX] = { 0, };
+	int waiting_time[MAX] = { 0, };
 }BUS;
 vector<BUS> bus;
 vector<BUS> real_bus;
 BUS temp;
+int inputTime;
+int Count = 0;
+BUS grind(BUS target)
+{
+	int sum = 0;
+	for (size_t i = 0; i < target.Station; i++)
+	{
+		if (inputTime != target.StationNum[i])
+		{
+			target.StationNum[i] = OUT;
+			target.waiting_time[i] = OUT;
+		}
+	}
+	return target;
+}
+
+bool compare(BUS a, BUS b)
+{
+	return a.waiting_time[0] < b.waiting_time[0];
+}
+
 int main()
 {
+	int s=0;
 	int testcase;
-	int inputTime;
-	bool isdel = false;
-	int count = 0;
 	cin >> testcase;
 
 	for (size_t i = 0; i < testcase; i++)
@@ -30,35 +50,28 @@ int main()
 		bus.push_back(temp);
 	}
 	cin >> inputTime;
-	
+
 	for (size_t i = 0; i < testcase; i++)
 	{
-		if (inputTime == bus[i].StationNum[count])
+		for (size_t j = 0; j < bus[i].Station; j++)
 		{
-			real_bus.push_back(bus[i]);
-			count++;
-			cout << "confirm RealBus value testing" << endl;
-			for (size_t i = 0; i < count; i++)
+			if (inputTime == bus[i].StationNum[j])
 			{
-				cout << real_bus[i].Number << " " << real_bus[i].Station << endl;
-				for (size_t k = 0; k < real_bus[i].Station; k++)
-				{
-					cout << real_bus[i].StationNum[k] << " " << real_bus[i].waiting_time[k] << endl;
-				}
+				real_bus.push_back(bus[i]);
+				Count++;
 			}
-
 		}
 	}
-	cout << "\\\\\\\\\\\\\\" << endl;
 
-	for (size_t i = 0; i < count; i++)
+	for (size_t i = 0; i < Count; i++)
 	{
-		cout << real_bus[i].Number << " " << real_bus[i].Station << endl;
-		for (size_t k = 0; k < real_bus[i].Station; k++)
-		{
-			cout << real_bus[i].StationNum[k] << " " << real_bus[i].waiting_time[k] << endl;
-		}
+		real_bus[i] = grind(real_bus[i]);
+		sort(real_bus[i].waiting_time, real_bus[i].waiting_time + real_bus[i].Station);
 	}
+	sort(real_bus.begin(), real_bus.end(), compare);
+	
+	cout << "수험번호(12345) " << "성명(조수빈) " << "학교명(여수정보과학고등학교)" << endl;
 
-
+	cout << real_bus[s].Number << " " << real_bus[s].waiting_time[0] << endl;
+	
 }
