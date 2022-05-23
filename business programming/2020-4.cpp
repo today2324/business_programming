@@ -4,12 +4,13 @@
 using namespace std;
 
 typedef struct BUS {
-	char* Number = new char;
+	string Number;
 	int Station = 0;
 	int StationNum[100] = { 0, };
 	int waiting_time[100] = { 0, };
 }BUS;
 vector<BUS> bus;
+vector<BUS> real_bus;
 BUS temp;
 int main()
 {
@@ -29,57 +30,33 @@ int main()
 		bus.push_back(temp);
 	}
 	cin >> inputTime;
+	
 	for (size_t i = 0; i < testcase; i++)
 	{
-		if (inputTime != bus[i].StationNum[count])
+		if (inputTime == bus[i].StationNum[count])
 		{
-			cout << "test" << endl;
-			bus[i].StationNum[count] = bus[i].StationNum[count +1];
-			bus[i].waiting_time[count] = bus[i].waiting_time[count +1];
-			for (size_t l = 0; l < testcase; l++)
+			real_bus.push_back(bus[i]);
+			count++;
+			cout << "confirm RealBus value testing" << endl;
+			for (size_t i = 0; i < count; i++)
 			{
-				cout << bus[l].Number << " " << bus[l].Station << endl;
-				for (size_t k = 0; k < bus[l].Station; k++)
+				cout << real_bus[i].Number << " " << real_bus[i].Station << endl;
+				for (size_t k = 0; k < real_bus[i].Station; k++)
 				{
-					cout << bus[l].StationNum[k] << " " << bus[l].waiting_time[k] << endl;
+					cout << real_bus[i].StationNum[k] << " " << real_bus[i].waiting_time[k] << endl;
 				}
 			}
-			cout << "test clear" << endl;
 
-
-
-
-
-
-		}
-		else
-		{
-			isdel = true;
-		}
-
-		if (isdel)
-		{
-			cout << "erase test" << endl;
-			bus.erase(bus.begin() + i);
-			isdel = false;
-			/*for (size_t l = 0; l < testcase; l++)
-			{
-				cout << bus[l].Number << " " << bus[l].Station << endl;
-				for (size_t k = 0; k < bus[l].Station; k++)
-				{
-					cout << bus[l].StationNum[k] << " " << bus[l].waiting_time[k] << endl;
-				}
-			}*/
-			cout << "erase test clear" << endl;
 		}
 	}
+	cout << "\\\\\\\\\\\\\\" << endl;
 
-	for (size_t i = 0; i < testcase; i++)
+	for (size_t i = 0; i < count; i++)
 	{
-		cout << bus[i].Number << " " << bus[i].Station << endl;
-		for (size_t k = 0; k < bus[i].Station; k++)
+		cout << real_bus[i].Number << " " << real_bus[i].Station << endl;
+		for (size_t k = 0; k < real_bus[i].Station; k++)
 		{
-			cout << bus[i].StationNum[k] << " " << bus[i].waiting_time[k] << endl;
+			cout << real_bus[i].StationNum[k] << " " << real_bus[i].waiting_time[k] << endl;
 		}
 	}
 
